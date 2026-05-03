@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Copy, LogOut, Wallet } from "lucide-react";
 import { toast } from "sonner";
+import ritualLogo from "@/assets/ritual-logo.png";
 
 interface Props {
   address: string | null;
