@@ -1,6 +1,7 @@
 import { Builder } from "@/hooks/useBuilders";
 import { Button } from "@/components/ui/button";
 import { Loader2, ThumbsUp, ExternalLink } from "lucide-react";
+import ritualLogo from "@/assets/ritual-logo.png";
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
