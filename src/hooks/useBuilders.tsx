@@ -15,22 +15,11 @@ const avatarCache = new Map<string, string>();
 async function fetchAvatar(username: string): Promise<string | undefined> {
   const handle = username.replace(/^@/, "");
   if (avatarCache.has(handle)) return avatarCache.get(handle);
-  try {
-    const res = await fetch(`https://api.fxtwitter.com/${handle}`);
-    if (res.ok) {
-      const data = await res.json();
-      const url = data?.user?.avatar_url ?? data?.user?.profile_image_url;
-      if (url) {
-        const hi = String(url).replace("_normal", "_400x400").replace("_bigger", "_400x400");
-        avatarCache.set(handle, hi);
-        return hi;
-      }
-    }
-  } catch {}
-  // Fallback to unavatar (HD, CORS-friendly)
-  const fallback = `https://unavatar.io/x/${handle}`;
-  avatarCache.set(handle, fallback);
-  return fallback;
+  // Use unavatar.io which proxies X/Twitter avatars in HD with CORS support.
+  // No fetch needed — the URL itself resolves to the image.
+  const url = `https://unavatar.io/x/${handle}?fallback=false`;
+  avatarCache.set(handle, url);
+  return url;
 }
 
 function getReadProvider() {
