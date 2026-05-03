@@ -10,7 +10,7 @@ import { MAX_VOTES, RITUAL_CHAIN } from "@/lib/contract";
 
 const Index = () => {
   const { address, signer, connecting, isCorrectChain, connect, disconnect, ensureRitualChain } = useWallet();
-  const { builders, loading, remaining, refreshing, refresh, vote } = useBuilders(signer, address);
+  const { builders, loading, remaining, refreshing, refresh, vote, applyOptimistic } = useBuilders(signer, address);
   const [votingIndex, setVotingIndex] = useState<number | null>(null);
   const [votedFor, setVotedFor] = useState<Set<number>>(new Set());
 
