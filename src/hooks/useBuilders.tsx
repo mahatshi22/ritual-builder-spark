@@ -76,9 +76,10 @@ export function useBuilders(signer: JsonRpcSigner | null, address: string | null
       if (address) {
         try {
           const r = await contract.remainingVotes(address);
-          setRemaining(Number(r));
+          // Use Math.min so a stale RPC response never overwrites an optimistic decrement
+          setRemaining((prev) => Math.min(prev, Number(r)));
         } catch {
-          setRemaining(MAX_VOTES);
+          // Leave the current value intact on RPC error (don't reset to MAX_VOTES)
         }
       }
     } finally {
