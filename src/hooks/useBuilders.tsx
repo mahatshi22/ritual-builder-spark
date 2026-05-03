@@ -101,5 +101,21 @@ export function useBuilders(signer: JsonRpcSigner | null, address: string | null
     [signer]
   );
 
-  return { builders, loading, remaining, refreshing, refresh: () => fetchData(true), vote };
+  // Optimistically bump a builder's count + decrement remaining (used right after tx confirms)
+  const applyOptimistic = useCallback((builderIndex: number) => {
+    setBuilders((prev) =>
+      prev.map((b) => (b.index === builderIndex ? { ...b, voteCount: b.voteCount + 1 } : b))
+    );
+    setRemaining((r) => Math.max(0, r - 1));
+  }, []);
+
+  return {
+    builders,
+    loading,
+    remaining,
+    refreshing,
+    refresh: () => fetchData(true),
+    vote,
+    applyOptimistic,
+  };
 }
