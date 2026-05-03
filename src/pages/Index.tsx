@@ -45,9 +45,13 @@ const Index = () => {
         ),
       });
       await tx.wait();
-      toast.success("Vote successful!");
+      // Optimistic UI update — instant feedback
+      applyOptimistic(index);
       setVotedFor((prev) => new Set(prev).add(index));
-      refresh();
+      toast.success("Vote successful!");
+      // Refresh from chain (with a small delay so RPC node has the new state)
+      setTimeout(() => refresh(), 800);
+      setTimeout(() => refresh(), 2500);
     } catch (err: any) {
       const msg = err?.shortMessage || err?.reason || err?.message || "Transaction failed";
       toast.error(msg.length > 120 ? msg.slice(0, 120) + "…" : msg);
