@@ -52,12 +52,14 @@ export const BuilderCard = ({ builder, rank, canVote, voting, onVote }: Props) =
 
         <h3 className="font-semibold text-lg leading-tight">{builder.name}</h3>
         <a
-          href={`https://twitter.com/${builder.username}`}
+          href={`https://x.com/${builder.username}`}
           target="_blank"
           rel="noreferrer"
-          className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+          className="mt-1 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/60 hover:bg-accent text-xs font-medium text-foreground/80 hover:text-primary transition-smooth border border-border/60 hover:border-primary/40"
         >
+          <XIcon className="h-3 w-3" />
           @{builder.username}
+          <ExternalLink className="h-3 w-3 opacity-60" />
         </a>
 
         <div className="my-4 flex items-baseline gap-1.5">
