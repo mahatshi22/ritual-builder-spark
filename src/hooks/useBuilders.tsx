@@ -13,19 +13,24 @@ export interface Builder {
 const avatarCache = new Map<string, string>();
 
 async function fetchAvatar(username: string): Promise<string | undefined> {
-  if (avatarCache.has(username)) return avatarCache.get(username);
+  const handle = username.replace(/^@/, "");
+  if (avatarCache.has(handle)) return avatarCache.get(handle);
   try {
-    const res = await fetch(`https://api.fxtwitter.com/${username}`);
-    if (!res.ok) return undefined;
-    const data = await res.json();
-    const url = data?.user?.avatar_url ?? data?.user?.profile_image_url;
-    if (url) {
-      const hi = String(url).replace("_normal", "_400x400");
-      avatarCache.set(username, hi);
-      return hi;
+    const res = await fetch(`https://api.fxtwitter.com/${handle}`);
+    if (res.ok) {
+      const data = await res.json();
+      const url = data?.user?.avatar_url ?? data?.user?.profile_image_url;
+      if (url) {
+        const hi = String(url).replace("_normal", "_400x400").replace("_bigger", "_400x400");
+        avatarCache.set(handle, hi);
+        return hi;
+      }
     }
   } catch {}
-  return undefined;
+  // Fallback to unavatar (HD, CORS-friendly)
+  const fallback = `https://unavatar.io/x/${handle}`;
+  avatarCache.set(handle, fallback);
+  return fallback;
 }
 
 function getReadProvider() {
