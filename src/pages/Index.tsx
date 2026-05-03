@@ -65,25 +65,25 @@ const Index = () => {
       <Navbar address={address} connecting={connecting} onConnect={connect} onDisconnect={disconnect} />
 
       {/* Hero */}
-      <section className="container pt-16 pb-10 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-medium mb-6 border border-primary/10">
+      <section className="container pt-10 sm:pt-16 pb-8 sm:pb-10 text-center px-4">
+        <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-medium mb-5 sm:mb-6 border border-primary/10">
           <Sparkles className="h-3.5 w-3.5" />
           Powered by Ritual Chain
         </div>
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-3 sm:mb-4">
           Top Builders on <span className="text-gradient">Ritual</span>
         </h1>
-        <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
+        <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-6 sm:mb-8 px-2">
           Vote for the builders shaping the ecosystem. Each wallet gets {MAX_VOTES} votes.
         </p>
 
-        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-card shadow-card border border-border/60">
-          <div className="text-sm text-muted-foreground">Votes left</div>
-          <div className="text-2xl font-bold text-gradient tabular-nums">
+        <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-card shadow-card border border-border/60">
+          <div className="text-xs sm:text-sm text-muted-foreground">Votes left</div>
+          <div className="text-xl sm:text-2xl font-bold text-gradient tabular-nums">
             {address ? remaining : MAX_VOTES}
           </div>
-          <div className="text-sm text-muted-foreground">/ {MAX_VOTES}</div>
-          <Button variant="ghost" size="sm" onClick={refresh} disabled={refreshing} className="rounded-full ml-2">
+          <div className="text-xs sm:text-sm text-muted-foreground">/ {MAX_VOTES}</div>
+          <Button variant="ghost" size="sm" onClick={refresh} disabled={refreshing} className="rounded-full ml-1 sm:ml-2 h-8 w-8 p-0">
             <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
           </Button>
         </div>
@@ -98,8 +98,8 @@ const Index = () => {
       )}
 
       {/* Grid */}
-      <section className="container pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <section className="container pb-16 sm:pb-20 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {loading
             ? Array.from({ length: 8 }).map((_, i) => <BuilderCardSkeleton key={i} />)
             : ranked.map((b) => (
