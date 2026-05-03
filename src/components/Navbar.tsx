@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Copy, LogOut, Wallet } from "lucide-react";
 import { toast } from "sonner";
+import ritualLogo from "@/assets/ritual-logo.png";
 
 interface Props {
   address: string | null;
@@ -22,8 +23,8 @@ export const Navbar = ({ address, connecting, onConnect, onDisconnect }: Props) 
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/70 border-b border-border/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl gradient-primary shadow-glow flex items-center justify-center">
-            <span className="text-primary-foreground font-bold">R</span>
+          <div className="h-9 w-9 rounded-xl bg-foreground shadow-glow flex items-center justify-center overflow-hidden">
+            <img src={ritualLogo} alt="Ritual" className="h-7 w-7 object-contain" />
           </div>
           <div className="flex flex-col leading-tight">
             <span className="font-semibold tracking-tight">Ritual Builder Spotlight</span>

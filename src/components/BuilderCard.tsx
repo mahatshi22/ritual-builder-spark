@@ -1,6 +1,7 @@
 import { Builder } from "@/hooks/useBuilders";
 import { Button } from "@/components/ui/button";
 import { Loader2, ThumbsUp, ExternalLink } from "lucide-react";
+import ritualLogo from "@/assets/ritual-logo.png";
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
@@ -34,19 +35,17 @@ export const BuilderCard = ({ builder, rank, canVote, voting, onVote }: Props) =
         <div className="relative mb-4">
           <div className="absolute inset-0 rounded-full gradient-primary opacity-0 group-hover:opacity-30 blur-xl transition-smooth" />
           <div className="relative h-24 w-24 rounded-full overflow-hidden ring-2 ring-border group-hover:ring-primary/40 transition-smooth bg-muted">
-            {builder.avatar ? (
-              <img
-                src={builder.avatar}
-                alt={builder.name}
-                className="h-full w-full object-cover"
-                loading="lazy"
-                onError={(e) => ((e.target as HTMLImageElement).style.display = "none")}
-              />
-            ) : (
-              <div className="h-full w-full gradient-soft flex items-center justify-center text-2xl font-semibold text-primary">
-                {builder.name[0]}
-              </div>
-            )}
+            <img
+              src={builder.avatar || ritualLogo}
+              alt={builder.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                if (img.src !== ritualLogo) img.src = ritualLogo;
+              }}
+            />
           </div>
         </div>
 
